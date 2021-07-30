@@ -22,12 +22,16 @@ slides.forEach(setSlidePosition)
 
 //stpes
 const moveToSlide = (track,currentSlide,targetSlide)=>{
-          console.log(targetSlide.style.left)
-         console.log(`translateX( -${targetSlide.style.left})`)
+        //   console.log(targetSlide.style.left)
+        //  console.log(`translateX( -${targetSlide.style.left})`)
         
             track.style.transform = `translateX( -${targetSlide.style.left})`;
             currentSlide.classList.remove('current-slide');
             targetSlide.classList.add('current-slide');
+}
+const updateDots=(currentDot,targetDot) => {
+    currentDot.classList.remove('current-slide');
+    targetDot.classList.add('current-slide')
 }
 //when i click left ,move slides to the left
 prevButton.addEventListener('click',e=>{
@@ -43,3 +47,20 @@ nextButton.addEventListener('click',e => {
     moveToSlide(track,currentSlide,nextSlide);
 })
 // when i click the nav indicator move to that slide
+dotsNav.addEventListener('click',e=>{
+    //what indicator was clicked on 
+    const targetDot = e.target.closest('button')
+    https://stackoverflow.com/questions/5791158/javascript-what-is-the-difference-between-if-x-and-if-x-null
+    // " !x will return true for every "falsy" value (empty string, 0, null, false, undefined, NaN) "
+    if(!targetDot){
+        // stop executing if the clicked target is not a button (target.closest===null)
+    return}
+    else{
+        const currentSlide = track.querySelector('.current-slide');
+        const currentDot = dotsNav.querySelector('.current-slide');
+        const targetIndex = dots.findIndex(dot => dot === targetDot)//return the index of the clicked item-button-
+        const targetSlide = slides[targetIndex];
+        moveToSlide(track,currentSlide,targetSlide);
+        updateDots(currentDot,targetDot);
+    }
+})
