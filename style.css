@@ -56,7 +56,7 @@
     /* right: 40px; */
 }
 .carousel__nav{
-    background-color: red;
+    /* background-color: red; */
     display: flex;
     justify-content: center;
     padding: 10px 0;
@@ -72,4 +72,7 @@
 }
 .carousel__indicator.current-slide{
     background-color: rgba(48, 48, 48, 0.9);
+}
+.hide{
+    display: none;
 }

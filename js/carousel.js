@@ -22,9 +22,6 @@ slides.forEach(setSlidePosition)
 
 //stpes
 const moveToSlide = (track,currentSlide,targetSlide)=>{
-        //   console.log(targetSlide.style.left)
-        //  console.log(`translateX( -${targetSlide.style.left})`)
-        
             track.style.transform = `translateX( -${targetSlide.style.left})`;
             currentSlide.classList.remove('current-slide');
             targetSlide.classList.add('current-slide');
@@ -37,14 +34,25 @@ const updateDots=(currentDot,targetDot) => {
 prevButton.addEventListener('click',e=>{
     const currentSlide = track.querySelector('.current-slide');
     const prevSlide = currentSlide.previousElementSibling;
+    const currentDot = dotsNav.querySelector('.current-slide')
+    const prevDot =currentDot.previousElementSibling;
+    // move to the previuos slide
     moveToSlide(track,currentSlide,prevSlide)
+    //change dot color
+    updateDots(currentDot,prevDot);
+    toggleArows();
 })
 //when i click right , move slides ot the right
 nextButton.addEventListener('click',e => {
     const currentSlide = track.querySelector('.current-slide')
     const nextSlide = currentSlide.nextElementSibling;
+    const currentDot = dotsNav.querySelector('.current-slide');
+    const nextDot = currentDot.nextElementSibling;
     //move to the next slide
     moveToSlide(track,currentSlide,nextSlide);
+    //cheng dot color
+    updateDots(currentDot,nextDot);
+    toggleArows();
 })
 // when i click the nav indicator move to that slide
 dotsNav.addEventListener('click',e=>{
@@ -62,5 +70,21 @@ dotsNav.addEventListener('click',e=>{
         const targetSlide = slides[targetIndex];
         moveToSlide(track,currentSlide,targetSlide);
         updateDots(currentDot,targetDot);
+        toggleArows();
     }
 })
+function toggleArows(){
+   if(slides[0].classList.contains('current-slide')){
+       prevButton.classList.add('hide');
+    //    console.log(slides[slides.length-1])
+   }else{
+    prevButton.classList.remove('hide')
+   }
+   if(slides[slides.length-1].classList.contains('current-slide')){
+       nextButton.classList.add('hide');
+       console.log(slides[slides.length-1])
+   }else{
+    nextButton.classList.remove('hide')
+   }
+
+}
